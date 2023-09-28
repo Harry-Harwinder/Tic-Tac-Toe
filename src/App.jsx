@@ -1,13 +1,7 @@
 import "./App.css";
 import Board from "./Components/Board";
 function App() {
-  return (
-    <>
-      <div>
-        <Board />
-      </div>
-    </>
-  );
+  return <Board />;
 }
 
 export default App;
