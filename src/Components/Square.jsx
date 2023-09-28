@@ -1,10 +1,12 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
-import React from 'react'
-export default function Square(props) {
+import PropTypes from "prop-types";
+Square.propTypes = {
+  onClick: PropTypes.func,
+  value: PropTypes.string,
+};
+export default function Square({ onClick, value }) {
   return (
-    <div onClick={props.onClick} className="square" >
-      <h3 style={{ marginTop: '40px' }}>{props.value}</h3>
+    <div onClick={onClick} className="square">
+      <h3 style={{ marginTop: "40px" }}>{value}</h3>
     </div>
-  )
+  );
 }

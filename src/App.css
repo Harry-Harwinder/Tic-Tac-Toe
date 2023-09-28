@@ -2,31 +2,92 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  margin-left: 500px; /* You may adjust this value for your desired horizontal alignment */
+  margin-left: 500px;
 }
 .board-container {
   margin-top: -200px;
 }
-.square{
-  cursor: pointer;
-  border:solid 1px;
-  height: 100px;
-  width:100px;
-  display:flex;
-  justify-content:center;
-  text-align:center;
+.title {
+  margin-left: 600px;
+  font-weight: bold;
+  margin-bottom: 16px;
 }
-/* Add these styles to change the board color when there's a winner */
+.board {
+  margin-top: 20px;
+}
+.square {
+  cursor: pointer;
+  border: solid 1px;
+  height: 100px;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+.btn-pl-again {
+  margin-left: 10px;
+}
 .board-container {
   display: inline-block;
   background-color: white;
 }
-.strike{
-  position: absolute;
-  background-color: darkorange;
+.row-3 {
+  background-color: red;
+  height: 1px;
+  width: 260px;
+  margin-left: 525px;
+  margin-top: -52px;
 }
-.strike-row-1{
-  width: 100%;
-  height:4px;
-  top:15%;
+.row-2 {
+  background-color: red;
+  height: 1px;
+  width: 260px;
+  margin-left: 525px;
+  margin-top: -153px;
+}
+.row-1 {
+  background-color: red;
+  height: 1px;
+  width: 260px;
+  margin-left: 525px;
+  margin-top: -256px;
+}
+.col-1 {
+  background-color: red;
+  height: 242px;
+  width: 1px;
+  margin-left: 550px;
+  margin-top: -275px;
+}
+.col-2 {
+  background-color: red;
+  height: 242px;
+  width: 1px;
+  margin-left: 652px;
+  margin-top: -275px;
+}
+.col-3 {
+  background-color: red;
+  height: 242px;
+  width: 1px;
+  margin-left: 754px;
+  margin-top: -275px;
+}
+.dg-row-1-1 {
+  background-color: red;
+  height: 370px;
+  width: 1px;
+  margin-left: 786px;
+  margin-top: -389px;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+}
+.dg-row-1-3 {
+  background-color: red;
+  height: 370px;
+  width: 1px;
+  margin-left: 520px;
+  margin-top: -391px;
+  transform: rotate(45deg);
+  transform-origin: 0 100%;
 }

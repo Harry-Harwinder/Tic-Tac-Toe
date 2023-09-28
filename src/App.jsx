@@ -1,13 +1,13 @@
-import './App.css'
-import Board from './Components/Board'
+import "./App.css";
+import Board from "./Components/Board";
 function App() {
-  
   return (
     <>
-    <div >  <Board />
-</div>
+      <div>
+        <Board />
+      </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
