@@ -29,7 +29,7 @@
 }
 .board-container {
   display: inline-block;
-  background-color: white;
+  background-color: "#ffffff";
 }
 .row-3 {
   background-color: red;
