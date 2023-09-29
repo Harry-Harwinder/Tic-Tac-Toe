@@ -11,7 +11,7 @@
   margin-bottom: -18px;
 }
 .board {
-  margin-top: 20px;
+  margin-top: 32px;
   margin-left: -565px;
 }
 .square {
@@ -102,4 +102,79 @@
 .start-btn{
   margin-left: -20px;
   margin-right: 25px;
+}
+.row-1-4x4 {
+  background-color: red;
+  height: 1px;
+  width: 360px;
+  margin-left: -42px;
+  margin-top: -358px;
+}
+.row-2-4x4 {
+  background-color: red;
+  height: 1px;
+  width: 360px;
+  margin-left: -42px;
+  margin-top: -256px;
+}
+.row-3-4x4 {
+  background-color: red;
+  height: 1px;
+  width: 360px;
+  margin-left: -42px;
+  margin-top: -154px;
+}
+.row-4-4x4 {
+  background-color: red;
+  height: 1px;
+  width: 360px;
+  margin-left: -42px;
+  margin-top: -52px;
+}
+.col-1-4x4 {
+  background-color: red;
+  height: 360px;
+  width: 1px;
+  margin-left: -14px;
+  margin-top: -385px;
+}
+.col-2-4x4 {
+  background-color: red;
+  height: 360px;
+  width: 1px;
+  margin-left: 88px;
+  margin-top: -385px;
+}
+.col-3-4x4 {
+  background-color: red;
+  height: 360px;
+  width: 1px;
+  margin-left: 190px;
+  margin-top: -385px;
+}
+.col-4-4x4 {
+  background-color: red;
+  height: 360px;
+  width: 1px;
+  margin-left: 292px;
+  margin-top: -385px;
+}
+.dg-row-1-1-4x4 {
+  background-color: red;
+  height: 505px;
+  width: 1px;
+  margin-left: 317px;
+  margin-top: -530px;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+
+}
+.dg-row-1-4-4x4 {
+  background-color: red;
+  height: 505px;
+  width: 1px;
+  margin-left: -42px;
+  margin-top: -528px;
+  transform: rotate(45deg);
+  transform-origin: 0 100%;
 }

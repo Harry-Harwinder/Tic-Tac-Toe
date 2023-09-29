@@ -7,31 +7,47 @@ export default function Board() {
   const [xIsTurn, setXIsTurn] = useState(true);
   const [winner, setWinner] = useState(null);
   const [boxShow, setBoxShow] = useState(true);
-  const winnerLogic = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-  ];
+  const [boxCount, setBoxCount] = useState(3);
+  const [, setUpdatedBoxCount] = useState(boxCount);
+
+  useEffect(() => {
+    setSquareData(Array(boxCount * boxCount).fill(null));
+  }, [boxCount]);
+
+  const generateWinnerLogic = () => {
+    const rows = [];
+    const cols = [];
+    const diagonals = [[], []];
+    for (let i = 0; i < boxCount; i++) {
+      rows.push(Array.from({ length: boxCount }, (_, j) => i * boxCount + j));
+      cols.push(Array.from({ length: boxCount }, (_, j) => j * boxCount + i));
+
+      diagonals[0].push(i * (boxCount + 1));
+      diagonals[1].push((i + 1) * (boxCount - 1));
+    }
+
+    return [...rows, ...cols, ...diagonals];
+  };
+
+  const winnerLogic = generateWinnerLogic();
+
+  const handleChangeInput = (event) => {
+    setBoxCount(event.target.value);
+  };
 
   function handleBoxShow() {
     setBoxShow(false);
+    setUpdatedBoxCount(boxCount);
   }
-
-  function handleBoxChange() {}
 
   function checkWinner() {
     for (let logic of winnerLogic) {
-      const [a, b, c] = logic;
-      if (
-        squareData[a] !== null &&
-        squareData[a] === squareData[b] &&
-        squareData[a] === squareData[c]
-      ) {
+      const isWinner = logic.every(
+        (index) =>
+          squareData[index] !== null &&
+          squareData[index] === squareData[logic[0]]
+      );
+      if (isWinner) {
         return logic;
       }
     }
@@ -39,115 +55,80 @@ export default function Board() {
   }
 
   useEffect(() => {
-    for (let logic of winnerLogic) {
-      const [a, b, c] = logic;
-      if (
-        squareData[a] !== null &&
-        squareData[a] === squareData[b] &&
-        squareData[a] === squareData[c]
-      )
-        for (let combination of winnerLogic) {
-          if (JSON.stringify(logic) === JSON.stringify(combination)) {
-            setWinner(logic);
-            break;
-          }
-        }
-      if (!isWinner) {
-        setWinner(null);
-      }
+    const isWinner = checkWinner();
+    if (isWinner) {
+      setWinner(isWinner);
+    } else if (squareData.every((square) => square !== null)) {
+      setWinner([]);
     }
   }, [squareData]);
 
-  const isWinner = checkWinner();
-
   function handleClick(index) {
-    if (isWinner || squareData[index] !== null) {
+    if (winner || squareData[index] !== null) {
       return;
     }
-    const copystateSquareData = [...squareData];
-    (copystateSquareData[index] = xIsTurn ? "X" : "0"),
-      setSquareData(copystateSquareData);
+    const copyStateSquareData = [...squareData];
+    copyStateSquareData[index] = xIsTurn ? "X" : "O";
+    setSquareData(copyStateSquareData);
     setXIsTurn(!xIsTurn);
   }
 
   function handlePlayAgain() {
-    setSquareData(Array(9).fill(null));
+    setSquareData(Array(boxCount * boxCount).fill(null));
     setXIsTurn(true);
     setWinner(null);
   }
-
-  function isBoardFull() {
-    return squareData.every((square) => square !== null);
-  }
-
   return (
     <div className="board-container">
       <div className="title">
         <h2>TIC-TAC-TOE</h2>
+        
         <span className="main">
-          {boxShow && (
-            <>
-              Box Count:
-              <input className="inp-count" type="number" defaultValue={3} />
-            </>
-          )}
-          {boxShow && (
-            <button onClick={handleBoxShow} onChange={handleBoxChange}>
-              Start
-            </button>
-          )}
-          {!boxShow && (
-            <>
-              {!isWinner && !isBoardFull() ? (
-                <span
-                  style={{ backgroundColor: "skyblue", marginLeft: "35px" }}
-                >
-                  Player {xIsTurn ? "X" : "0"} Please Move
-                </span>
-              ) : null}
-              {isWinner && (
-                <>
-                  <div
-                    style={{
-                      marginLeft: "-18px",
-                      marginTop: "-21px",
-                      marginBottom: "15px",
-                    }}
-                  >
+        {winner ? (
+                  <div style={{  marginLeft: "-18px",
+                  marginTop: "-21px",
+                  marginBottom: "15px",}}>
                     <span style={{ backgroundColor: "skyblue" }}>
-                      Player {squareData[isWinner[0]]} is Winner
+                      Player {squareData[winner[0]]}  is Winner
                     </span>
                     <button className="btn-pl-again" onClick={handlePlayAgain}>
                       Play Again
                     </button>
                   </div>
-                </>
-              )}
-              {!isWinner && isBoardFull() ? (
-                <div style={{ marginLeft: "-12px", marginTop: "-20px" }}>
-                  <span style={{ backgroundColor: "skyblue" }}>
-                    The Game Is Draw
-                  </span>
-                  <button className="btn-pl-again" onClick={handlePlayAgain}>
-                    Play Again
-                  </button>
-                </div>
-              ) : (
-                <></>
-              )}
-
+                ) : (
+                  <></>
+                )}
+          {boxShow && (
+            <>
+              Box Count:
+              <input
+                type="number"
+                onChange={handleChangeInput}
+                value={boxCount}
+                className="inp-count"
+                min="3"
+                max="10"
+              />
+            </>
+          )}
+          {boxShow && <button onClick={handleBoxShow}>Start</button>}
+          
+          {!boxShow && (
+            <>
               <div className="board">
-                {Array.from({ length: 3 }, (_, rowIndex) => (
+                {Array.from({ length: boxCount }, (_, rowIndex) => (
                   <div key={rowIndex} className="board-row">
-                    {Array.from({ length: 3 }, (_, colIndex) => {
-                      const index = rowIndex * 3 + colIndex;
+                    {Array.from({ length: boxCount }, (_, colIndex) => {
+                      const index = rowIndex * boxCount + colIndex;
+
                       return (
-                        <Square
-                          key={index}
-                          onClick={() => handleClick(index)}
-                          value={squareData[index]}
-                          isWinningSquare={isWinner && isWinner.includes(index)}
-                        />
+                        <div key={index}>
+                          <Square
+                            value={squareData[index]}
+                            onClick={() => handleClick(index)}
+                            isWinningSquare={winner && winner.includes(index)}
+                          />
+                        </div>
                       );
                     })}
                   </div>
@@ -156,6 +137,7 @@ export default function Board() {
               <ShowLine winner={winner} />
             </>
           )}
+
         </span>
       </div>
     </div>
