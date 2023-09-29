@@ -78,26 +78,32 @@ export default function Board() {
     setXIsTurn(true);
     setWinner(null);
   }
+
   return (
     <div className="board-container">
       <div className="title">
         <h2>TIC-TAC-TOE</h2>
-        
+
         <span className="main">
-        {winner ? (
-                  <div style={{  marginLeft: "-18px",
-                  marginTop: "-21px",
-                  marginBottom: "15px",}}>
-                    <span style={{ backgroundColor: "skyblue" }}>
-                      Player {squareData[winner[0]]}  is Winner
-                    </span>
-                    <button className="btn-pl-again" onClick={handlePlayAgain}>
-                      Play Again
-                    </button>
-                  </div>
-                ) : (
-                  <></>
-                )}
+          {winner ? (
+            <div
+              style={{
+                marginLeft: "-18px",
+                marginTop: "-21px",
+                marginBottom: "15px",
+              }}
+            >
+              <span style={{ backgroundColor: "skyblue" }}>
+                Player {squareData[winner[0]]} is Winner
+              </span>
+              <button className="btn-pl-again" onClick={handlePlayAgain}>
+                Play Again
+              </button>
+            </div>
+          ) : (
+            <></>
+          )}
+          
           {boxShow && (
             <>
               Box Count:
@@ -112,7 +118,7 @@ export default function Board() {
             </>
           )}
           {boxShow && <button onClick={handleBoxShow}>Start</button>}
-          
+
           {!boxShow && (
             <>
               <div className="board">
@@ -137,7 +143,6 @@ export default function Board() {
               <ShowLine winner={winner} />
             </>
           )}
-
         </span>
       </div>
     </div>
