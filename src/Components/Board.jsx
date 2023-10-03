@@ -22,7 +22,7 @@ export default function Board() {
       rows.push(Array.from({ length: boxCount }, (_, j) => i * boxCount + j));
       cols.push(Array.from({ length: boxCount }, (_, j) => j * boxCount + i));
 
-      diagonals[0].push(i * (boxCount + 1));
+      diagonals[0].push(i * boxCount + i);
       diagonals[1].push((i + 1) * (boxCount - 1));
     }
 
@@ -60,6 +60,8 @@ export default function Board() {
       setWinner(isWinner);
     } else if (squareData.every((square) => square !== null)) {
       setWinner([]);
+    } else {
+      setWinner(null);
     }
   }, [squareData]);
 
@@ -78,20 +80,15 @@ export default function Board() {
     setXIsTurn(true);
     setWinner(null);
   }
-
   return (
     <div className="board-container">
       <div className="title">
         <h2>TIC-TAC-TOE</h2>
 
         <span className="main">
-          {winner ? (
+          {Array.isArray(winner) && winner.length > 0 ? (
             <div
-              style={{
-                marginLeft: "-18px",
-                marginTop: "-21px",
-                marginBottom: "15px",
-              }}
+           className="winner-text"
             >
               <span style={{ backgroundColor: "skyblue" }}>
                 Player {squareData[winner[0]]} is Winner
@@ -103,7 +100,16 @@ export default function Board() {
           ) : (
             <></>
           )}
-          
+          {Array.isArray(winner) && winner.length === 0 && (
+            <div style={{ marginLeft: "-12px", marginTop: "-20px" }}>
+              <span style={{ backgroundColor: "skyblue" }}>
+                The Game Is Draw
+              </span>
+              <button className="btn-pl-again" onClick={handlePlayAgain}>
+                Play Again
+              </button>
+            </div>
+          )}
           {boxShow && (
             <>
               Box Count:
@@ -128,7 +134,7 @@ export default function Board() {
                       const index = rowIndex * boxCount + colIndex;
 
                       return (
-                        <div key={index}>
+                        <div key={index} >
                           <Square
                             value={squareData[index]}
                             onClick={() => handleClick(index)}
